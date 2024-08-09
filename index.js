@@ -5,7 +5,7 @@ const client = new Client({
     user: 'postgres',
     host: 'localhost',
     password: 'Codeedoc99$',
-    database: 'employee-tracker-a12',
+    database: 'employee_tracker',
     port: 5432,
 });
 
@@ -24,6 +24,7 @@ const mainMenu = () => {
             'Add a role',
             'Add an employee',
             'Update an employee role',
+            'Seed Database',
             'Exit'
         ]
     }).then(answer => {
@@ -49,3 +50,13 @@ const mainMenu = () => {
         }
     })
 }
+
+const viewDepartments = () => {
+    client.query('SELECT * FROM department', (err, res) => {
+        if (err) throw err;
+        console.table(res.rows);
+        mainMenu();
+    });
+};
+
+mainMenu();
